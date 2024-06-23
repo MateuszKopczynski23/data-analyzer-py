@@ -6,9 +6,9 @@ class DataManager:
         self.data = pd.read_csv(csv_path)
 
     def explore_data(self):
-        info = self.data.info()
-        describe = self.data.describe().to_string(float_format="{:.2f}".format)
-        return info, describe
+        data = self.data
+        describe = data.describe().to_string(float_format="{:.2f}".format)
+        return data, describe
 
     def filter_data(self, column, value):
         try:
@@ -17,9 +17,9 @@ class DataManager:
         except KeyError:
             return None
 
-    def sort_data(self, column):
+    def sort_data(self, column, is_ascending=True):
         try:
-            sorted_data = self.data.sort_values(by=column)
+            sorted_data = self.data.sort_values(by=column, ascending=is_ascending)
             return sorted_data.to_string()
         except KeyError:
             return None
