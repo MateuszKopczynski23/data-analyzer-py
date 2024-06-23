@@ -3,4 +3,5 @@ class PlotMedalsPerCountry:
         self.visualizer = visualizer
 
     def execute(self):
-        self.visualizer.plot_medals_per_country()
+        num_results = int(input("Enter the number of results to display: "))
+        self.visualizer.plot_medals_per_country(num_results)
