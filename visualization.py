@@ -87,7 +87,19 @@ class DataVisualization:
             self.data['SOG_silver'] = pd.to_numeric(self.data['SOG_silver'], errors='coerce')
             self.data['SOG_bronze'] = pd.to_numeric(self.data['SOG_bronze'], errors='coerce')
 
-            country_data = self.data[self.data['team'] == country_name]
+            matching_countries = self.data[self.data['team'].str.contains(country_name, case=False, na=False)]
+
+            if matching_countries.empty:
+                print(f"No data found for country: {country_name}")
+                return
+
+            if len(matching_countries) > 1:
+                print(f"Multiple matches found for '{country_name}':")
+                print(matching_countries['team'].unique())
+                chosen_team = input("Enter the full team name from the list above: ").strip()
+                country_data = self.data[self.data['team'] == chosen_team]
+            else:
+                country_data = matching_countries
 
             if country_data.empty:
                 print(f"No data found for country: {country_name}")
