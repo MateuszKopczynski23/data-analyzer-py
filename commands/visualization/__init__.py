@@ -1,0 +1,4 @@
+from .plot_medal_comparison import PlotMedalComparison
+from .plot_medal_ratio_pie import PlotMedalRatioPie
+from .plot_medals_per_country import PlotMedalsPerCountry
+from .plot_medals_per_country_pie import PlotMedalsPerCountryPie

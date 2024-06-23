@@ -1,16 +1,28 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from data_manager import DataManager
+from analysis import DataAnalysis
+from loaders.file_loader import FileLoader
+from visualization import DataVisualization
+from resolvers.command_resolver import CommandResolver
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def main():
+    file_path = input("Enter the path to the CSV file: ").strip()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    file_loader = FileLoader(file_path)
+    file_loader.load_data()
+
+    data = file_loader.get_data()
+    if data is None:
+        print("Failed to load data. Exiting program.")
+        return
+
+    data_manager = DataManager(file_path)
+    analyzer = DataAnalysis(data_manager.data)
+    visualizer = DataVisualization(data_manager.data)
+
+    resolver = CommandResolver(data_manager, analyzer, visualizer)
+    resolver.run()
+
+
+if __name__ == "__main__":
+    main()
