@@ -23,8 +23,11 @@ class DataAnalysis:
             top_countries = medals_by_country_sorted[['team', column_name]].nlargest(num_results, column_name)
 
             return top_countries.to_string(index=False)
+
         except KeyError as e:
-            return f"Error: {e}"
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     def average_medals_per_participant(self, num_results=None):
         try:
@@ -44,10 +47,11 @@ class DataAnalysis:
             top_averages = self.data.nlargest(num_results, 'Average_medals_per_participant')
 
             return top_averages[['team', 'Average_medals_per_participant']].to_string(index=False)
+
         except KeyError as e:
-            return f"Error: {e}"
-        except TypeError as e:
-            return f"Error: {e}"
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     def countries_with_most_participations(self, num_results=None):
         try:
@@ -62,5 +66,8 @@ class DataAnalysis:
                                                                                        'Total_participations')
 
             return most_participations.to_string(index=False)
+
         except KeyError as e:
-            return f"Error: {e}"
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")

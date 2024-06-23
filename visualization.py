@@ -123,8 +123,7 @@ class DataVisualization:
             plt.title(f'Medal Composition for {country_name}')
             plt.axis('equal')
             plt.show()
-
         except KeyError as e:
-            print(f"Error: {e}. Required columns 'team', 'SOG_gold', 'SOG_silver', or 'SOG_bronze' not found.")
+            print(f"Error: {e}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
