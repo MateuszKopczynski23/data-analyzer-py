@@ -105,7 +105,7 @@ class DataVisualization:
                 print(f"Multiple matches found for '{country_name}':")
                 print(matching_countries['team'].unique())
                 chosen_team = input("Enter the full team name from the list above: ").strip()
-                country_data = self.data[self.data['team'] == chosen_team]
+                country_data = self.data[self.data['team'].str.contains(chosen_team, case=False, na=False)]
             else:
                 country_data = matching_countries
 
@@ -117,10 +117,13 @@ class DataVisualization:
             colors = ['gold', 'silver', 'brown']
             explode = (0.1, 0, 0)
 
+            team_name = country_data['team'].iloc[0] if len(country_data) == 1 else ', '.join(
+                country_data['team'].unique())
+
             plt.figure(figsize=(8, 8))
             plt.pie(sizes, explode=explode, labels=self._LABELS, colors=colors, autopct='%1.1f%%', shadow=True,
                     startangle=140)
-            plt.title(f'Medal Composition for {country_name}')
+            plt.title(f'Medal Composition for {team_name}')
             plt.axis('equal')
             plt.show()
         except KeyError as e:
